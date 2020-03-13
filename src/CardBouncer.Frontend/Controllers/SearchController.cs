@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CardBouncer.Frontend.Data;
-using CardBouncer.Frontend.Entities;
+using CardBouncer.Frontend.DomainEntities;
 
 namespace CardBouncer.Frontend.Controllers
 {

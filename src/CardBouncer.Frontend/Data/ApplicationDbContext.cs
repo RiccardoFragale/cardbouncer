@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using CardBouncer.Frontend.DomainEntities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CardBouncer.Frontend.Data
@@ -9,6 +10,6 @@ namespace CardBouncer.Frontend.Data
             : base(options)
         {
         }
-        public DbSet<CardBouncer.Frontend.Entities.ApplicantDetails> ApplicantDetails { get; set; }
+        public DbSet<ApplicantDetails> ApplicantDetails { get; set; }
     }
 }

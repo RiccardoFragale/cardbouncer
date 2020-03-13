@@ -71,8 +71,6 @@ namespace CardBouncer.Frontend
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-
-
         }
     }
 }

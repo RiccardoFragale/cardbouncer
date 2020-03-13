@@ -1,4 +1,4 @@
-﻿namespace CardBouncer.Frontend.Entities
+﻿namespace CardBouncer.Frontend.DomainEntities
 {
     public class SearchResult : EntityBase
     {

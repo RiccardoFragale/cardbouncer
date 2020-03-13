@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CardBouncer.Frontend.Entities
+namespace CardBouncer.Frontend.DomainEntities
 {
     public class Card : EntityBase
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace CardBouncer.Frontend.Entities
+namespace CardBouncer.Frontend.DomainEntities
 {
     public class ApplicantDetails : EntityBase
     {
