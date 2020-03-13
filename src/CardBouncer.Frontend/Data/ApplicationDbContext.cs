@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using CardBouncer.Frontend.Models;
-using CardBouncer.Frontend.Entities;
 
 namespace CardBouncer.Frontend.Data
 {

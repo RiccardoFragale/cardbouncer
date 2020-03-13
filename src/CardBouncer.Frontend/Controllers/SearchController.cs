@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CardBouncer.Frontend.Data;
 using CardBouncer.Frontend.Entities;
-using Microsoft.AspNetCore.Authorization;
 
 namespace CardBouncer.Frontend.Controllers
 {
     public class SearchController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext DbContext;
 
         public SearchController(ApplicationDbContext context)
         {
-            _context = context;
+            DbContext = context;
         }
 
         // GET: Search
@@ -41,7 +37,7 @@ namespace CardBouncer.Frontend.Controllers
         {
             if (ModelState.IsValid)
             {
-                var existingApplicantDetails = await _context.ApplicantDetails
+                var existingApplicantDetails = await DbContext.ApplicantDetails
                     .Where(x => x.LastName.ToLower() == applicantDetails.LastName.ToLower())
                     .Where(x => x.DateOfBirth.Date == applicantDetails.DateOfBirth.Date)
                     .FirstOrDefaultAsync(x => x.FirstName.ToLower() == applicantDetails.FirstName.ToLower());
@@ -49,16 +45,16 @@ namespace CardBouncer.Frontend.Controllers
                 if (existingApplicantDetails == null)
                 {
                     applicantDetails.Initialize();
-                    _context.Add(applicantDetails);
+                    DbContext.Add(applicantDetails);
                 }
                 else
                 {
                     existingApplicantDetails.AnnualIncome = applicantDetails.AnnualIncome;
 
-                    _context.Update(existingApplicantDetails);                    
+                    DbContext.Update(existingApplicantDetails);                    
                 }
 
-                await _context.SaveChangesAsync();
+                await DbContext.SaveChangesAsync();
 
                 var id = applicantDetails.Id;
                 if (existingApplicantDetails != null)
@@ -74,10 +70,9 @@ namespace CardBouncer.Frontend.Controllers
 
         public IActionResult Details(int id)
         {
-            var model = _context.ApplicantDetails.Find(id);
+            var model = DbContext.ApplicantDetails.Find(id);
 
             return View(model);
         }
-
     }
 }
