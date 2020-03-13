@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using CardBouncer.Frontend.Models;
+using CardBouncer.Frontend.Entities;
 
 namespace CardBouncer.Frontend.Data
 {
@@ -12,5 +14,6 @@ namespace CardBouncer.Frontend.Data
             : base(options)
         {
         }
+        public DbSet<CardBouncer.Frontend.Entities.ApplicantDetails> ApplicantDetails { get; set; }
     }
 }
