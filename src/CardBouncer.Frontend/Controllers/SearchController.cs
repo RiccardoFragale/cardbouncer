@@ -61,7 +61,7 @@ namespace CardBouncer.Frontend.Controllers
                 await _context.SaveChangesAsync();
 
                 var id = applicantDetails.Id;
-                if (existingApplicantDetails != null && existingApplicantDetails.Id != 0)
+                if (existingApplicantDetails != null)
                 {
                     id = existingApplicantDetails.Id;
                 }
