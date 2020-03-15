@@ -4,12 +4,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CardBouncer.Frontend.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
+
         public DbSet<ApplicantDetails> ApplicantDetails { get; set; }
+        public DbSet<SearchResult> SearchResults { get; set; }
     }
 }

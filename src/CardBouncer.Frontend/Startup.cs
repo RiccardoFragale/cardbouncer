@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using CardBouncer.Frontend.Data;
+using CardBouncer.Frontend.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,17 +29,16 @@ namespace CardBouncer.Frontend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews();
+            services.AddRazorPages();
+
             SqliteConnection connection = new SqliteConnection(Configuration.GetConnectionString("DefaultConnection"));
             connection.Open();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(connection), ServiceLifetime.Scoped);
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-
-            services.AddControllersWithViews();
-            services.AddRazorPages();
+            services.AddScoped<IApplicantDetailsRepository, ApplicantDetailsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,9 +60,6 @@ namespace CardBouncer.Frontend
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthentication();
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
