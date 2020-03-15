@@ -1,5 +1,5 @@
+using System;
 using CardBouncer.Frontend.Controllers;
-using CardBouncer.Frontend.Data;
 using CardBouncer.Frontend.DomainEntities;
 using CardBouncer.Frontend.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +31,36 @@ namespace CardBouncer.Tests
             var result = controller.Create(newApplicant);
 
             Assert.IsInstanceOf<RedirectToActionResult>(result.Result);
+        }
+
+        [Test]
+        public void SubmitShouldUpdateUserDetailsWhenExistingUser()
+        {
+            var mockRepo = new Mock<IApplicantDetailsRepository>();
+            var loadResult = new ApplicantDetails
+            {
+                Id = 1,
+                FirstName = "test",
+                AnnualIncome = 20000
+            };
+
+            loadResult.Initialize();
+
+            mockRepo.Setup(x => x.LoadApplicantDetails(It.IsAny<ApplicantDetails>())).ReturnsAsync(loadResult);
+
+            var controller = new SearchController(mockRepo.Object);
+
+            var newApplicant = new ApplicantDetails
+            {
+                FirstName = "test",
+                DateOfBirth = new DateTime(2002, 01, 10),
+                AnnualIncome = 40000
+            };
+
+            var result = controller.Create(newApplicant);
+
+            Assert.IsInstanceOf<RedirectToActionResult>(result.Result);
+            Assert.AreEqual(1, ((RedirectToActionResult) result.Result).RouteValues["id"]);
         }
     }
 }
