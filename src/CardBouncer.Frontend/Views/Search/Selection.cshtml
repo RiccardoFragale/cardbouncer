@@ -1,0 +1,21 @@
+﻿@using CardBouncer.Frontend.DomainEntities
+@model SelectionViewModel
+
+@{
+    ViewData["Title"] = "Selection";
+}
+
+<h1>Available Cards</h1>
+
+@foreach (var card in Model.Cards)
+{
+    <div class="jumbotron">
+        @card.Name
+        <div class="lead">
+            @card.PromotionalMessage
+        </div>
+        <div class="badge">
+            @card.Apr
+        </div>
+    </div>
+}

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using CardBouncer.Frontend.Data;
 using CardBouncer.Frontend.DomainEntities;
@@ -23,7 +24,7 @@ namespace CardBouncer.Frontend.Repositories
                 .FirstOrDefaultAsync(x => x.FirstName.ToLower() == entity.FirstName.ToLower());
         }
 
-        public async Task<int> Create(ApplicantDetails entity)
+        public async Task<int> Create<T>(T entity)
         {
             await DbContext.AddAsync(entity);
             return await DbContext.SaveChangesAsync();
@@ -38,6 +39,11 @@ namespace CardBouncer.Frontend.Repositories
         public async Task<ApplicantDetails> LoadApplicantDetails(int id)
         {
             return await DbContext.ApplicantDetails.FindAsync(id);
+        }
+
+        public async Task<ApplicantDetails> LoadApplicantDetails(Guid guid)
+        {
+            return await DbContext.ApplicantDetails.FirstAsync(x=>x.GuId == guid);
         }
     }
 }

@@ -8,13 +8,9 @@ using NUnit.Framework;
 
 namespace CardBouncer.Tests
 {
+    [TestFixture]
     public class ApplicantDetailsSubmitTests
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         [Test]
         public void SubmitShouldCreateUserDetails()
         {
@@ -60,7 +56,7 @@ namespace CardBouncer.Tests
             var result = controller.Create(newApplicant);
 
             Assert.IsInstanceOf<RedirectToActionResult>(result.Result);
-            Assert.AreEqual(1, ((RedirectToActionResult) result.Result).RouteValues["id"]);
+            Assert.AreEqual(loadResult.GuId, ((RedirectToActionResult) result.Result).RouteValues["guid"]);
         }
     }
 }
