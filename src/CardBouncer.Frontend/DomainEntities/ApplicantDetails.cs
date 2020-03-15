@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace CardBouncer.Frontend.Entities
+namespace CardBouncer.Frontend.DomainEntities
 {
     public class ApplicantDetails : EntityBase
     {
@@ -18,12 +16,6 @@ namespace CardBouncer.Frontend.Entities
         public decimal AnnualIncome { get; set; }
 
         public virtual IEnumerable<SearchResult> SearchResults { get; set; }
-
-        public void Initialize()
-        {
-            GuId = Guid.NewGuid();
-            CreatedDate = DateTime.Now;
-        }
     }
 }
 

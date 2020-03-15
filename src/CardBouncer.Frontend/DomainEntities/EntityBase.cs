@@ -1,15 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace CardBouncer.Frontend.Entities
+namespace CardBouncer.Frontend.DomainEntities
 {
     public class EntityBase
     {
         public int Id { get; set; }
         public Guid GuId { get; set; }
         public DateTime CreatedDate { get; set; }
+
+        public void Initialize()
+        {
+            GuId = Guid.NewGuid();
+            CreatedDate = DateTime.Now;
+        }
     }
 }
 

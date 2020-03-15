@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CardBouncer.Frontend.DomainEntities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using CardBouncer.Frontend.Models;
-using CardBouncer.Frontend.Entities;
 
 namespace CardBouncer.Frontend.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
-        public DbSet<CardBouncer.Frontend.Entities.ApplicantDetails> ApplicantDetails { get; set; }
+
+        public DbSet<ApplicantDetails> ApplicantDetails { get; set; }
+        public DbSet<SearchResult> SearchResults { get; set; }
     }
 }

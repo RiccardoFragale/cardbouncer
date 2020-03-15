@@ -1,5 +1,3 @@
-using System;
-
 namespace CardBouncer.Frontend.Models
 {
     public class ErrorViewModel
