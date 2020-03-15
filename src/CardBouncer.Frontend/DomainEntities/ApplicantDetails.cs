@@ -16,12 +16,6 @@ namespace CardBouncer.Frontend.DomainEntities
         public decimal AnnualIncome { get; set; }
 
         public virtual IEnumerable<SearchResult> SearchResults { get; set; }
-
-        public void Initialize()
-        {
-            GuId = Guid.NewGuid();
-            CreatedDate = DateTime.Now;
-        }
     }
 }
 

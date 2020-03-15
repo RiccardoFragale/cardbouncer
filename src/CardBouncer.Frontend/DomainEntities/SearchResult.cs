@@ -2,6 +2,7 @@
 {
     public class SearchResult : EntityBase
     {
-        public string ResultsAsJsonString { get; set; }
+        public string ResultsAsString { get; set; }
+        public int ExtApplicantDetailsId { get; set; }
     }
 }
