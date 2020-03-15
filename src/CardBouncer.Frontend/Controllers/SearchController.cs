@@ -4,16 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CardBouncer.Frontend.Data;
 using CardBouncer.Frontend.DomainEntities;
+using CardBouncer.Frontend.Repositories;
 
 namespace CardBouncer.Frontend.Controllers
 {
     public class SearchController : Controller
     {
-        private readonly ApplicationDbContext DbContext;
+        private readonly IApplicantDetailsRepository Repository;
 
-        public SearchController(ApplicationDbContext context)
+        public SearchController(IApplicantDetailsRepository repository)
         {
-            DbContext = context;
+            Repository = repository;
         }
 
         // GET: Search
@@ -37,24 +38,19 @@ namespace CardBouncer.Frontend.Controllers
         {
             if (ModelState.IsValid)
             {
-                var existingApplicantDetails = await DbContext.ApplicantDetails
-                    .Where(x => x.LastName.ToLower() == applicantDetails.LastName.ToLower())
-                    .Where(x => x.DateOfBirth.Date == applicantDetails.DateOfBirth.Date)
-                    .FirstOrDefaultAsync(x => x.FirstName.ToLower() == applicantDetails.FirstName.ToLower());
+                var existingApplicantDetails = await Repository.LoadApplicantDetails(applicantDetails);
 
                 if (existingApplicantDetails == null)
                 {
                     applicantDetails.Initialize();
-                    DbContext.Add(applicantDetails);
+                    await Repository.Create(applicantDetails);
                 }
                 else
                 {
                     existingApplicantDetails.AnnualIncome = applicantDetails.AnnualIncome;
 
-                    DbContext.Update(existingApplicantDetails);                    
+                    await Repository.Update(existingApplicantDetails);                    
                 }
-
-                await DbContext.SaveChangesAsync();
 
                 var id = applicantDetails.Id;
                 if (existingApplicantDetails != null)
@@ -68,9 +64,9 @@ namespace CardBouncer.Frontend.Controllers
             return View(applicantDetails);
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var model = DbContext.ApplicantDetails.Find(id);
+            var model = await Repository.LoadApplicantDetails(id);
 
             return View(model);
         }

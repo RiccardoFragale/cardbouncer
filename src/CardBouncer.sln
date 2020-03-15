@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardBouncer.Frontend", "CardBouncer.Frontend\CardBouncer.Frontend.csproj", "{C7C5F09B-019F-421C-B63C-1A7B29B141FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardBouncer.Frontend", "CardBouncer.Frontend\CardBouncer.Frontend.csproj", "{C7C5F09B-019F-421C-B63C-1A7B29B141FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardBouncer.Tests", "CardBouncer.Tests\CardBouncer.Tests.csproj", "{91B8488C-2DE6-46E4-B7ED-A8738F448EFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C7C5F09B-019F-421C-B63C-1A7B29B141FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7C5F09B-019F-421C-B63C-1A7B29B141FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7C5F09B-019F-421C-B63C-1A7B29B141FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91B8488C-2DE6-46E4-B7ED-A8738F448EFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91B8488C-2DE6-46E4-B7ED-A8738F448EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91B8488C-2DE6-46E4-B7ED-A8738F448EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91B8488C-2DE6-46E4-B7ED-A8738F448EFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
