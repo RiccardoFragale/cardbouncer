@@ -6,16 +6,24 @@
 }
 
 <h1>Available Cards</h1>
-
-@foreach (var card in Model.Cards)
+@if (Model.Cards.Any())
 {
-    <div class="jumbotron">
-        @card.Name
-        <div class="lead">
-            @card.PromotionalMessage
+    @foreach (var card in Model.Cards)
+    {
+        <div class="jumbotron">
+            @card.Name
+            <div class="lead">
+                @card.PromotionalMessage
+            </div>
+            <div class="badge">
+                @card.Apr
+            </div>
         </div>
-        <div class="badge">
-            @card.Apr
-        </div>
-    </div>
+    }
 }
+else
+{
+    <h3>No credit cards are available.</h3>
+}
+
+
