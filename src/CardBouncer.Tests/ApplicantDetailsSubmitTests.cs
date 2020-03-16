@@ -17,7 +17,7 @@ namespace CardBouncer.Tests
             var mockRepo = new Mock<IApplicantDetailsRepository>();
             mockRepo.Setup(x => x.LoadApplicantDetails(It.IsAny<ApplicantDetails>())).ReturnsAsync((ApplicantDetails)null);
 
-            var controller = new SearchController(mockRepo.Object);
+            var controller = new SearchController(mockRepo.Object, new CardsRepository());
 
             var newApplicant = new ApplicantDetails
             {
@@ -44,7 +44,7 @@ namespace CardBouncer.Tests
 
             mockRepo.Setup(x => x.LoadApplicantDetails(It.IsAny<ApplicantDetails>())).ReturnsAsync(loadResult);
 
-            var controller = new SearchController(mockRepo.Object);
+            var controller = new SearchController(mockRepo.Object, new CardsRepository());
 
             var newApplicant = new ApplicantDetails
             {

@@ -39,6 +39,7 @@ namespace CardBouncer.Frontend
                 options.UseSqlite(connection), ServiceLifetime.Scoped);
 
             services.AddScoped<IApplicantDetailsRepository, ApplicantDetailsRepository>();
+            services.AddScoped<ICardsRepository, CardsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

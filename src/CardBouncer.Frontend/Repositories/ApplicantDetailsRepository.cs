@@ -45,5 +45,6 @@ namespace CardBouncer.Frontend.Repositories
         {
             return await DbContext.ApplicantDetails.FirstAsync(x=>x.GuId == guid);
         }
+
     }
 }

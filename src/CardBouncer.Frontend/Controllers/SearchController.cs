@@ -12,13 +12,13 @@ namespace CardBouncer.Frontend.Controllers
 {
     public class SearchController : Controller
     {
-        private readonly IApplicantDetailsRepository Repository;
-        private const decimal BARKLEYS_THRESHOLD = 30000;
-        private const int MINIMUM_AGE = 18;
+        private readonly IApplicantDetailsRepository ApplicantDetailsRepository;
+        private readonly ICardsRepository CardsRepository;
 
-        public SearchController(IApplicantDetailsRepository repository)
+        public SearchController(IApplicantDetailsRepository applicantDetailsRepository, ICardsRepository cardsRepository)
         {
-            Repository = repository;
+            ApplicantDetailsRepository = applicantDetailsRepository;
+            CardsRepository = cardsRepository;
         }
 
         // GET: Search
@@ -42,18 +42,18 @@ namespace CardBouncer.Frontend.Controllers
         {
             if (ModelState.IsValid)
             {
-                var existingApplicantDetails = await Repository.LoadApplicantDetails(applicantDetails);
+                var existingApplicantDetails = await ApplicantDetailsRepository.LoadApplicantDetails(applicantDetails);
 
                 if (existingApplicantDetails == null)
                 {
                     applicantDetails.Initialize();
-                    await Repository.Create(applicantDetails);
+                    await ApplicantDetailsRepository.Create(applicantDetails);
                 }
                 else
                 {
                     existingApplicantDetails.AnnualIncome = applicantDetails.AnnualIncome;
 
-                    await Repository.Update(existingApplicantDetails);                    
+                    await ApplicantDetailsRepository.Update(existingApplicantDetails);
                 }
 
                 var guid = applicantDetails.GuId;
@@ -70,46 +70,36 @@ namespace CardBouncer.Frontend.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var model = await Repository.LoadApplicantDetails(id);
+            var model = await ApplicantDetailsRepository.LoadApplicantDetails(id);
 
             return View(model);
         }
 
         public async Task<IActionResult> Selection(Guid guid)
         {
-            var model = await Repository.LoadApplicantDetails(guid);
+            var model = await ApplicantDetailsRepository.LoadApplicantDetails(guid);
             int age = model.DateOfBirth.CalculateAge();
 
-            var viewModel = new SelectionViewModel
-            {
-                Cards = new List<Card>()
-            };
+            var viewModel = new SelectionViewModel();
+            var cards = CardsRepository.LoadCards(age, model.AnnualIncome).ToList();
 
-            if (age > MINIMUM_AGE)
+            if (cards.Any())
             {
-                if (model.AnnualIncome > BARKLEYS_THRESHOLD)
+                viewModel.Cards = cards;
+                var searchResult = new SearchResult
                 {
-                    viewModel.Cards.Add(new Card { Name = "Vanquish" });
-                }
-                else
-                {
-                    viewModel.Cards.Add(new Card { Name = "Barkleys" });
-                }
+                    ResultsAsString = string.Join(",", viewModel.Cards.Select(x => x.Name).ToList()),
+                    ExtApplicantDetailsId = model.Id
+                };
+
+                searchResult.Initialize();
+
+                await ApplicantDetailsRepository.Create(searchResult);
             }
             else
             {
                 viewModel.Message = "No credit cards available.";
             }
-
-            var searchResult = new SearchResult
-            {
-                ResultsAsString = string.Join(",", viewModel.Cards.Select(x => x.Name).ToList()),
-                ExtApplicantDetailsId = model.Id
-            };
-
-            searchResult.Initialize();
-
-            await Repository.Create(searchResult);
 
             return View(viewModel);
         }

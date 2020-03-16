@@ -6,6 +6,6 @@ namespace CardBouncer.Frontend.Models
     public class SelectionViewModel
     {
         public string Message { get; set; }
-        public ICollection<Card> Cards { get; set; }
+        public IEnumerable<Card> Cards { get; set; }
     }
 }

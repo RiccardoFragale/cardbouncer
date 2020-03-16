@@ -31,7 +31,7 @@ namespace CardBouncer.Tests
             loadResult.Initialize();
 
             mockRepo.Setup(x => x.LoadApplicantDetails(It.IsAny<Guid>())).ReturnsAsync(loadResult);
-            var controller = new SearchController(mockRepo.Object);
+            var controller = new SearchController(mockRepo.Object, new CardsRepository());
 
             var result = controller.Selection(Guid.NewGuid());
 

@@ -1,4 +1,4 @@
-﻿@using CardBouncer.Frontend.DomainEntities
+﻿@using CardBouncer.Frontend.Extensions
 @model SelectionViewModel
 
 @{
@@ -6,7 +6,7 @@
 }
 
 <h1>Available Cards</h1>
-@if (Model.Cards.Any())
+@if (Model.Cards.IsNotNullOrEmpty())
 {
     @foreach (var card in Model.Cards)
     {
@@ -16,7 +16,7 @@
                 @card.PromotionalMessage
             </div>
             <div class="badge">
-                @card.Apr
+               APR: @card.Apr%
             </div>
         </div>
     }
